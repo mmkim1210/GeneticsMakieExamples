@@ -12,6 +12,7 @@ Then run `src/GeneticsMakieExamples.jl` in either Julia REPL or terminal by
 ```
 julia --project=. ./src/GeneticsMakieExamples.jl
 ```
+Recommend having at least 16 GB RAM available for this code. 
 
 ## Required data
     data
