@@ -50,7 +50,7 @@ function locuszoom(genes)
         window = 1e6
         chr, start, stop = GeneticsMakie.findgene(gene, gencode)
         range1, range2 = start - window, stop + window
-        @info "Subsetting GWAS results."
+        @info "Subsetting GWAS results"
         @time gwas_subset = subsetgwas(gwas, chr, range1, range2)
         titles = [GeneticsMakie.gwas[p].title for p in phenos]
         @info "Plotting LocusZoom"
