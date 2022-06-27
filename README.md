@@ -2,11 +2,15 @@
 
 An example Julia code for generating LocusZoom plots.
 
-To run, open Julia v1.6 + within the folder and type
+Open Julia v1.6 + within the folder and type
 ```julia
 julia> ]
 pkg> activate .
 pkg> instantiate
+```
+Then run `src/GeneticsMakieExamples.jl` in either Julia REPL or terminal by 
+```
+julia --project=. ./src/GeneticsMakieExamples.jl
 ```
 
 ## Required data
@@ -23,4 +27,5 @@ pkg> instantiate
     ├── gencode.v39lift37.annotation.chr15.gtf.gz  # GENCODE v39
     └── kgp.chr15.{bed, bim, fam}                  # 1000 Genomes EUR reference
 
+## Final output
 <p align="center"><img width="70%" style="border-radius: 5px;" src="figs/CHRNA5-locuszoom.png"></p>
