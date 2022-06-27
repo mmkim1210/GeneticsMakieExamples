@@ -16,7 +16,7 @@ end
 @assert (117_418, 9) == size(gencode)
 
 @info "Loading 1000 Genomes reference panel for chromosome 15"
-kgp = SnpData(joinpath(@__DIR__, "../data/kgp"))
+kgp = SnpData(joinpath(@__DIR__, "../data/kgp.chr15"))
 @assert (503, 200_311) == size(kgp)
 
 @info "Loading GWAS results for chromosome 15"
