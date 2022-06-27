@@ -1,8 +1,8 @@
 # GeneticsMakieExamples
 
-Example Julia code for generating phenome-scale LocusZoom plots.
+Example Julia code for generating LocusZoom plots.
 
-To run, open Julia within the folder and type
+To run, open Julia v1.6 + within the folder and type
 ```julia
 julia> ]
 pkg> activate .

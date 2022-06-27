@@ -1,4 +1,4 @@
-data/
+data/*.arrow
 LocalPreferences.toml
 Manifest.toml
 .DS_Store
