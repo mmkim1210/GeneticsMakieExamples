@@ -8,7 +8,13 @@ julia> ]
 pkg> activate .
 pkg> instantiate
 ```
-Then run `src/GeneticsMakieExamples.jl` in either Julia REPL or terminal by 
+
+Then run `src/GeneticsMakieExamples.jl` in Julia REPL by
+```julia
+julia> include("./src/GeneticsMakieExamples.jl")
+```
+
+Or you can run it instead in terminal via
 ```
 julia --project=. ./src/GeneticsMakieExamples.jl
 ```
