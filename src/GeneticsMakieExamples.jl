@@ -45,29 +45,29 @@ issig(df::DataFrame; p = 5e-8) = issig(df.P; p = p)
 
 ispath(joinpath(@__DIR__, "../figs")) || mkpath(joinpath(@__DIR__, "../figs"))
 function locuszoom(genes)
+    titles = [GeneticsMakie.gwas[p].title for p in phenos]
+    n = length(titles)
+    window = 1e6
     for gene in genes
         @info "Working on $gene gene"
-        window = 1e6
         chr, start, stop = GeneticsMakie.findgene(gene, gencode)
         range1, range2 = start - window, stop + window
         @info "Subsetting GWAS results"
         @time gwas_subset = subsetgwas(gwas, chr, range1, range2)
-        titles = [GeneticsMakie.gwas[p].title for p in phenos]
         @info "Plotting LocusZoom"
-        n = length(titles)
         f = Figure(resolution = (306, 1500))
         axs = [Axis(f[i, 1]) for i in 1:(n + 1)]
         for i in 1:n
             if issig(gwas_subset[i])
                 GeneticsMakie.plotlocus!(axs[i], chr, range1, range2, gwas_subset[i]; ld = kgp)
                 if gwas_subset[i].BP[argmin(gwas_subset[i].P)] < (range1 + range2) / 2
-                    Label(f[i, 1, Top()], "$(titles[i])", textsize = 6, halign = :right, padding = (0, 7.5, -5, 0))
+                    Label(f[i, 1, Top()], "$(titles[i])", fontsize = 6, halign = :right, padding = (0, 7.5, -5, 0))
                 else
-                    Label(f[i, 1, Top()], "$(titles[i])", textsize = 6, halign = :left, padding = (7.5, 0, -5, 0))
+                    Label(f[i, 1, Top()], "$(titles[i])", fontsize = 6, halign = :left, padding = (7.5, 0, -5, 0))
                 end    
             else
                 GeneticsMakie.plotlocus!(axs[i], chr, range1, range2, gwas_subset[i])
-                Label(f[i, 1, Top()], "$(titles[i])", textsize = 6, halign = :left, padding = (7.5, 0, -5, 0))
+                Label(f[i, 1, Top()], "$(titles[i])", fontsize = 6, halign = :left, padding = (7.5, 0, -5, 0))
             end
             rowsize!(f.layout, i, 30)
         end
@@ -75,10 +75,10 @@ function locuszoom(genes)
         rowsize!(f.layout, n + 1, rs)
         GeneticsMakie.labelgenome(f[n + 1, 1, Bottom()], chr, range1, range2)
         Colorbar(f[1:n, 2], limits = (0, 1), ticks = 0:1:1, height = 20,
-            colormap = (:gray60, :red2), label = "LD", ticksize = 0, tickwidth = 0,
+            colormap = [:gray60, :red2], label = "LD", ticksize = 0, tickwidth = 0,
             tickalign = 0, ticklabelsize = 6, flip_vertical_label = true,
             labelsize = 6, width = 5, spinewidth = 0.5)
-        Label(f[1:n, 0], text = "-log[p]", textsize = 6, rotation = pi / 2)
+        Label(f[1:n, 0], rich("-log", subscript("10"), rich("P", font = :italic)), fontsize = 6, rotation = π / 2)
         for i in 1:(n + 1)
             vlines!(axs[i], start, color = (:gold, 0.5), linewidth = 0.5)
             vlines!(axs[i], stop, color = (:gold, 0.5), linewidth = 0.5)
