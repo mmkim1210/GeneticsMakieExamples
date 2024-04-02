@@ -55,7 +55,7 @@ function locuszoom(genes)
         @info "Subsetting GWAS results"
         @time gwas_subset = subsetgwas(gwas, chr, range1, range2)
         @info "Plotting LocusZoom"
-        f = Figure(resolution = (306, 1500))
+        f = Figure(size = (306, 1500))
         axs = [Axis(f[i, 1]) for i in 1:(n + 1)]
         for i in 1:n
             if issig(gwas_subset[i])
